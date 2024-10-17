@@ -2,18 +2,16 @@ from flask import (Flask, request)
 
 app = Flask(__name__)
 
-@app.route("/", methods=('GET',))
+@app.route("/sting:nome", methods=('GET',))
 def index():
     return "<h1>Página Inicial</h1>"
 
-@app.route("/area")
-def area():
-  altura = float (request.args.get('a'))
-  largura = float(request.args.get('l'))
-  return f""" 
-<h1> A área informada> L={largura}* A={altura} Area={largura*altura}</h1>"""
+@app.route("/area/<float:altura>/<float:largura>" , methods=("GET",))
+def area(largura, altura):
+    
+    return f"""<h1> A área informada> L={largura}* A={altura} => Area={largura*altura} <h1>"""
 
-@app.route("/parimpar", methods=('GET',))
+@app.route("/parimpar/<float:numero>", methods=('GET',))
 def parimpar():
   numero = float(request.args.get('n'))
   if numero % 2 == 0:
@@ -27,7 +25,6 @@ def nomesob():
   sobrenome = request.args.get('sobrenome')
   return f"""<h1> Sobrenome </h1>
   <p>{sobrenome},{nome}</p>"""
-
 
 
 
